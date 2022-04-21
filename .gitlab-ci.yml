@@ -1,0 +1,36 @@
+image: gradle:7.4-jdk-11-alpine
+
+stages:
+  - sonarqube-check
+  - deploy
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+
+SonarQube-Check:
+  stage: sonarqube-check
+  image: gradle:7.4.2-jdk11-alpine
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+    GIT_DEPTH: "0"
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script:
+    - gradle sonarqube -D"sonar.projectKey=$SONAR_PROJECT_KEY" -D"sonar.host.url=$SONAR_HOST_URL" -D"sonar.login=$SONAR_TOKEN"
+    - gradle sonarqube -Dsonar.qualitygate.wait=false
+  allow_failure: true
+  only:
+    - master
+
+Deploy:
+  stage: deploy
+  image: ruby:latest
+  before_script:
+    - gem install dpl
+    - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
+  script:
+    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
+    - export HEROKU_API_KEY=$HEROKU_API_KEY
+    - heroku run --app $HEROKU_APP_NAME migrate
