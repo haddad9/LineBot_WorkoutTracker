@@ -17,16 +17,20 @@ import java.util.List;
 @Entity
 @Table(name="user")
 public class User {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
+    int id;
+
     @Column(name="line_id")
     private String lineId;
 
     @Column(name="display_name")
     String displayName; 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
-    int idUserDb;
+
 
 
     @Column(name="user_id")

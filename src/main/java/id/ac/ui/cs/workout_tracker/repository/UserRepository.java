@@ -6,5 +6,5 @@ import id.ac.ui.cs.workout_tracker.model.User;
 
 
 public interface UserRepository extends JpaRepository<User, String>{
-    User findById(int string);
+    User findByUserId(String string);
 }

@@ -34,6 +34,9 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+//	del soon
+	implementation 'com.h2database:h2:1.4.199'
 }
 
 test {
