@@ -1,9 +1,7 @@
 package id.ac.ui.cs.workout_tracker.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -26,6 +24,11 @@ public class User {
     String displayName; 
 
     @Id
+    @Generated
+    @Column(name="id_user_db")
+    int idUserDb;
+
+
     @Column(name="user_id")
     private String userId;
 
