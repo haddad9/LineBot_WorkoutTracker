@@ -24,8 +24,8 @@ public class User {
     String displayName; 
 
     @Id
-    @Generated
-    @Column(name="id_user_db")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
     int idUserDb;
 
 

@@ -16,8 +16,8 @@ public class Workout {
 
 
     @Id
-    @GeneratedValue
-    @Column(name = "id_workout")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private int id;
 
     @Column(name="wo_day")
@@ -33,7 +33,7 @@ public class Workout {
     private int reps;
 
     @ManyToOne
-    @JoinColumn(name="wo_user")
+    @JoinColumn(name="wo_user", referencedColumnName = "id")
     private User user;
 
     public Workout(String woDay, String woName, int woSets, int woReps) {
