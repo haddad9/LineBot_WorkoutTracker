@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import id.ac.ui.cs.workout_tracker.model.User;
 import id.ac.ui.cs.workout_tracker.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
 /**
  * DatabaseService
  */
 
+@Service
 public class DatabaseService {
 
     @Autowired

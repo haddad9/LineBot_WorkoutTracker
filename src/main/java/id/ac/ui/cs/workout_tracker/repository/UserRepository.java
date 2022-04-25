@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import id.ac.ui.cs.workout_tracker.model.User;
 
-public interface UserRepository extends JpaRepository<User, Integer>{
-    User findById(String string);
+
+public interface UserRepository extends JpaRepository<User, String>{
+    User findById(int string);
 }

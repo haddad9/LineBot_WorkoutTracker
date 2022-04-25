@@ -31,6 +31,8 @@ public class Botservice {
     @Autowired
     private DatabaseService dbService;
 
+
+
     @Autowired
     private UserRepository userRepository;
 
@@ -63,6 +65,8 @@ public class Botservice {
         TextMessage textMessage = new TextMessage(messageText);
         reply(replyToken, textMessage);
     }
+
+
 
 
     /** Method To Handle Message Event.
@@ -304,7 +308,7 @@ public class Botservice {
     public void createJadwal(String replyToken, String msgText) {
         String exceptMsg = "Harap perhatikan format yang perlu dikirimkan";
         String userid = source.getSenderId();
-        User pengguna = userRepository.findById(userid);
+        User pengguna = userRepository.findById(userid).get();
         Workout newWorkout;
 
         try {
