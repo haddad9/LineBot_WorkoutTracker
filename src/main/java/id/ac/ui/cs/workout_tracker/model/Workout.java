@@ -13,6 +13,13 @@ import javax.persistence.*;
 @Entity
 @Table(name="workout")
 public class Workout {
+
+
+    @Id
+    @GeneratedValue
+    @Column(name = "id_workout")
+    private int id;
+
     @Column(name="wo_day")
     private String day;
 
