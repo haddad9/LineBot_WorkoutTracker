@@ -1,5 +1,6 @@
 package id.ac.ui.cs.workout_tracker.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.linecorp.bot.client.LineMessagingClient;
@@ -21,6 +22,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Slf4j
 @Service
 public class Botservice {
     public Source source;
@@ -102,8 +105,11 @@ public class Botservice {
         } else if (msgText.contains("/jadwal")) {
             showJadwal(replyToken);
         } else if (msgText.contains("/create") && msgText.trim().length() < 8) {
+
+
             createMessage(replyToken);
         } else if (msgText.contains("/create") && msgText.trim().length() > 8) {
+            log.info("message for /create: {}", msgText);
             createJadwal(replyToken, msgText);
         } else if  (msgText.contains("/delete") && msgText.trim().length() < 7) {
             deleteMessage(replyToken);
@@ -122,12 +128,14 @@ public class Botservice {
         Method for registration 
     */
     public void register(String replyToken, String msgText) {
+
         String[] words = msgText.trim().split("/");
-        
+        log.info("register method, words: {}",words);
         checkGender(replyToken, words); 
     }
 
     public void checkGender(String replyToken, String[] words) {
+
         try {
             String gender = words[2];
             if (gender.equals("L") || gender.equals("P")) {
@@ -136,7 +144,7 @@ public class Botservice {
                 invalidGender(replyToken);
             }
         } catch (Exception e) {
-            String msg = "Gender yang kamu masukkan tidak valid! Silahkan masukkan antara L atau P!";
+            String msg = "Gender yang kamu masukkan tidak valid! masukkan hanya L atau P!";
             replyText(replyToken, msg);
         }
     }
@@ -147,6 +155,7 @@ public class Botservice {
     }
 
     public void validGender(String replyToken, String[] words) {
+        log.info("validGender, words: {}",words);
         String beratBadan = words[3];
         try {
             if (Integer.parseInt(beratBadan) > 0) {
@@ -306,9 +315,10 @@ public class Botservice {
     }
 
     public void createJadwal(String replyToken, String msgText) {
+        log.info("method createJadwal, msg: {}", msgText);
         String exceptMsg = "Harap perhatikan format yang perlu dikirimkan";
         String userid = source.getSenderId();
-        User pengguna = userRepository.findById(userid).get();
+        User pengguna = userRepository.findByUserId(userid);
         Workout newWorkout;
 
         try {
