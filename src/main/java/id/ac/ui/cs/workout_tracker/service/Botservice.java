@@ -131,15 +131,20 @@ public class Botservice {
     public void register(String replyToken, String msgText) {
 
         String[] words = msgText.trim().split("/");
+        for(String w : words){
+            log.info("ARRAY OF WORDS:::{}", w);
+
+
+        }
         log.info("register method, words: {}", Arrays.toString(words));
         checkGender(replyToken, words); 
     }
 
     public void checkGender(String replyToken, String[] words) {
-
+        log.info("checkGender: gender={}, berat badan={}",words[2], words[3]);
         try {
             String gender = words[2];
-            log.info("checkGender: gender={}, berat badan={}",gender, words[3]);
+
             if (gender.equals("L") || gender.equals("P")) {
                 validGender(replyToken, words);
             } else {
