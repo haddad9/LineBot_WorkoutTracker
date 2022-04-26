@@ -18,6 +18,7 @@ import id.ac.ui.cs.workout_tracker.model.User;
 import id.ac.ui.cs.workout_tracker.model.Workout;
 import id.ac.ui.cs.workout_tracker.repository.UserRepository;
 
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 import java.util.ArrayList;
 import java.util.List;
@@ -130,7 +131,7 @@ public class Botservice {
     public void register(String replyToken, String msgText) {
 
         String[] words = msgText.trim().split("/");
-        log.info("register method, words: {}",words);
+        log.info("register method, words: {}", Arrays.toString(words));
         checkGender(replyToken, words); 
     }
 
@@ -138,12 +139,14 @@ public class Botservice {
 
         try {
             String gender = words[2];
+            log.info("checkGender: gender={}, berat badan={}",gender, words[3]);
             if (gender.equals("L") || gender.equals("P")) {
                 validGender(replyToken, words);
             } else {
                 invalidGender(replyToken);
             }
         } catch (Exception e) {
+
             String msg = "Gender yang kamu masukkan tidak valid! masukkan hanya L atau P!";
             replyText(replyToken, msg);
         }
@@ -155,7 +158,7 @@ public class Botservice {
     }
 
     public void validGender(String replyToken, String[] words) {
-        log.info("validGender, words: {}",words);
+
         String beratBadan = words[3];
         try {
             if (Integer.parseInt(beratBadan) > 0) {
